@@ -1,0 +1,15 @@
+{
+  "name": "de.jochenheckl.meshutil",
+  "displayName": "MeshUtil",
+  "version": "1.0.0",
+  "unity": "2019.3",
+  "description": "This package contains some utilities to deal with custom meshes.",
+  "type": "library",
+  "samples": [
+    {
+      "displayName": "Example Sample",
+      "description": "Replace this string with your own description of the sample. Delete the Samples folder if not needed.",
+      "path": "Samples~/Example"
+    }
+  ]
+}
