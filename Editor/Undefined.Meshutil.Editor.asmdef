@@ -1,0 +1,10 @@
+{
+    "name": "Undefined.Meshutil.Editor",
+    "references": [
+      "Undefined.Meshutil"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

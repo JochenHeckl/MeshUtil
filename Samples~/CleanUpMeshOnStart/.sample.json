@@ -1,0 +1,5 @@
+{
+	"displayName":"Cleanout a mesh from Start().",
+	"description": "Simple example where a generated hex mesh is cleaned out. Vertices are welded and duplicate triangles are removed.",
+	"createSeparatePackage": false
+}

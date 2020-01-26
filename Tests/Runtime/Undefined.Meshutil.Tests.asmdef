@@ -1,0 +1,11 @@
+{
+    "name": "Undefined.Meshutil.Tests",
+    "references": [
+        "Undefined.Meshutil"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
