@@ -12,7 +12,7 @@ namespace de.JochenHeckl.MeshUtil
     {
         /// <summary>
         /// Welds all vertices that are closer to each other than the given threshold.
-        /// the index buffers of the mesh will also be update.
+        /// The index buffers of the mesh will also be updated.
         /// </summary>
         /// <param name="mesh"></param>
         /// <param name="threshold"></param>
