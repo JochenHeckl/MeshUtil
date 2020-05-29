@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.TestTools;
 using NUnit.Framework;
 
 namespace de.JochenHeckl.Unity.MeshUtil.Editor.Test
@@ -16,11 +15,10 @@ namespace de.JochenHeckl.Unity.MeshUtil.Editor.Test
 
             Assert.AreEqual( mesh.vertexCount, 5 );
 
-            var duplicates = mesh.WeldVertices( 0.001f );
+            var weldResult = mesh.vertices.WeldVertices( 0.001f );
 
-            Assert.AreEqual( duplicates, 2 );
-            Assert.AreEqual( mesh.vertices.Length, 3 );
-            Assert.AreEqual( mesh.triangles, new int[] { 0, 1, 2 } );
+            Assert.AreEqual( mesh.vertices.Length - weldResult.remappedVertices.Count, 2 );
+            Assert.AreEqual( weldResult.remappedVertices.Count, 3 );
         }
     }
 }

@@ -16,29 +16,26 @@ namespace de.JochenHeckl.Unity.MeshUtil
         /// </summary>
         /// <param name="mesh"></param>
         /// <param name="threshold"></param>
-        public static int WeldVertices( this Mesh mesh, float threshold )
+        public static ( IList<Vector3> remappedVertices, IDictionary<int, int> vertexRemaps ) WeldVertices( this Vector3[] vertices, float threshold )
         {
-            // brute force match every vertex against every other
-
             var vertexRemaps = new Dictionary<int, int>();
-            var remappedVertices = new List<Vector3>() { mesh.vertices[0] };
+            var remappedVertices = new List<Vector3>() { vertices[0] };
 
-            var duplicates = 0;
             vertexRemaps[0] = 0;
 
             var sqrThreshold = threshold * threshold;
 
-            for (var vertexIdx = 1; vertexIdx < mesh.vertexCount; vertexIdx++)
+            for (var vertexIdx = 1; vertexIdx < vertices.Length; vertexIdx++)
             {
                 var isDuplicate = false;
 
-                for (var otherVertexIdx = 0; otherVertexIdx < remappedVertices.Count; otherVertexIdx++)
+                for( var remappedVertexIdx = 0; remappedVertexIdx < remappedVertices.Count; remappedVertexIdx++)
                 {
-                    if (TestWeldable( mesh.vertices[vertexIdx], remappedVertices[otherVertexIdx], sqrThreshold ))
+                    if (Vector3.SqrMagnitude( vertices[vertexIdx] - remappedVertices[remappedVertexIdx] ) <= sqrThreshold)
                     {
-                        vertexRemaps[vertexIdx] = otherVertexIdx;
+                        // this is a duplicate vertex
+                        vertexRemaps[vertexIdx] = remappedVertexIdx;
                         isDuplicate = true;
-                        duplicates++;
                         break;
                     }
                 }
@@ -46,45 +43,50 @@ namespace de.JochenHeckl.Unity.MeshUtil
                 if (!isDuplicate)
                 {
                     vertexRemaps[vertexIdx] = remappedVertices.Count;
-                    remappedVertices.Add( mesh.vertices[vertexIdx] );
+                    remappedVertices.Add( vertices[vertexIdx] );
                 }
             }
 
-            var subMeshTriangles = new List<int[]>();
+            return (remappedVertices, vertexRemaps);
+        }
 
-            for (var subMeshIdx = 0; subMeshIdx < mesh.subMeshCount; subMeshIdx++)
+        public static Vector2[] RemapUvs( this Vector2[] uvs, IDictionary<int,int> vertexRemaps )
+        {
+            var remappedUvs = new Vector2[vertexRemaps.Values.Max() + 1];
+
+            foreach( var vertexRemap in vertexRemaps )
             {
-                subMeshTriangles.Add( RecreateIndexBuffer( mesh.GetTriangles( subMeshIdx ), vertexRemaps ) );
+                remappedUvs[vertexRemap.Value] = uvs[vertexRemap.Key];
             }
 
-            mesh.Clear();
+            return remappedUvs;
+        }
 
-            mesh.SetVertices( remappedVertices.ToArray() );
+        public static int[] RemapTriangleIndices( this int[] triangleIndices, IDictionary<int, int> vertexRemaps )
+        {
+            return triangleIndices.Select( x => vertexRemaps[x] ).ToArray();
+        }
 
-            for (var subMeshIdx = 0; subMeshIdx < subMeshTriangles.Count; subMeshIdx++)
+        public static int[] RemoveDuplicateTriangles( this int[] triangleIndices )
+        {
+            var triangles = new List<int[]>();
+
+            for( var vertexIndex = 0; vertexIndex < triangleIndices.Length; vertexIndex +=3 )
             {
-                mesh.SetTriangles( subMeshTriangles[subMeshIdx], subMeshIdx );
+                var nextTriangle = triangleIndices.Skip( vertexIndex ).Take( 3 );
+
+                if( !triangles.Any( x => TestIdenticalTriangles( x, nextTriangle ) ))
+                {
+                    triangles.Add( nextTriangle.ToArray() );
+                }
             }
-
-            return duplicates;
+            
+            return triangles.SelectMany( x => x ).ToArray();
         }
 
-        public static int RemoveDuplicateTriangles( this Mesh mesh )
+        private static bool TestIdenticalTriangles( int[] one, IEnumerable<int> other )
         {
-            throw new NotImplementedException();
-
-            return 0;
-        }
-
-
-        private static bool TestWeldable( Vector3 one, Vector3 other, float sqrThreshold )
-        {
-            return Vector3.SqrMagnitude( one - other ) <= sqrThreshold;
-        }
-
-        private static int[] RecreateIndexBuffer( int[] vertices, Dictionary<int, int> vertexRemaps )
-        {
-            return vertices.Select( x => vertexRemaps[x] ).ToArray();
+            return one.OrderBy( x => x ).SequenceEqual( other.OrderBy( x => x) );
         }
     }
 }
