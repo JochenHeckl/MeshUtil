@@ -1,7 +1,7 @@
 {
-    "name": "de.JochenHeckl.MeshUtil.Test",
+    "name": "de.JochenHeckl.Unity.MeshUtil.Test",
     "references": [
-        "Undefined.Meshutil",
+        "de.JochenHeckl.Unity.MeshUtil",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

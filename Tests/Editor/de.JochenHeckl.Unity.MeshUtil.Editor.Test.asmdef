@@ -1,9 +1,9 @@
 {
-    "name": "de.JochenHeckl.MeshUtil.Editor.Test",
+    "name": "de.JochenHeckl.Unity.MeshUtil.Editor.Test",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "de.JochenHeckl.MeshUtil"
+        "de.JochenHeckl.Unity.MeshUtil"
     ],
     "includePlatforms": [
         "Editor"

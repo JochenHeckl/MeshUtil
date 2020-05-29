@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace de.JochenHeckl.MeshUtil
+namespace de.JochenHeckl.Unity.MeshUtil
 {
     /// <summary>
     /// Extension class for unity meshes.

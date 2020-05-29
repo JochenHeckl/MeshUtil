@@ -1,7 +1,7 @@
 {
-  "name": "de.jochenheckl.meshutil",
+  "name": "de.jochenheckl.unity.meshutil",
   "displayName": "MeshUtil",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "unity": "2019.3",
   "description": "This package contains some utilities to deal with custom meshes.",
   "type": "library",

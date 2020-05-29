@@ -1,7 +1,11 @@
 {
-    "name": "JochenHeckl.Meshutil",
-    "references": [],
-    "includePlatforms": [],
+    "name": "de.JochenHeckl.Unity.MeshUtil.Editor",
+    "references": [
+        "GUID:f0607540010928b4f86e17f3e00e7016"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

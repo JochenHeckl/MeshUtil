@@ -1,11 +1,7 @@
 {
-    "name": "de.JochenHeckl.MeshUtil.Editor",
-    "references": [
-        "Undefined.Meshutil"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "name": "de.JochenHeckl.Unity.MeshUtil",
+    "references": [],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

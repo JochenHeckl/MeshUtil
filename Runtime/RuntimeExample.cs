@@ -4,7 +4,7 @@
 //
 // -----------------------------------------------------------------------------
 
-namespace Undefined.Meshutil
+namespace de.JochenHeckl.Unity.MeshUtil
 {
     /// <summary>
     /// Provide a general description of the public class.

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using de.JochenHeckl.MeshUtil;
+using de.JochenHeckl.Unity.MeshUtil;
 
 public class ApplyMeshCleanUp : MonoBehaviour
 {
