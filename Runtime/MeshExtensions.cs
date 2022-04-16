@@ -41,6 +41,28 @@ namespace de.JochenHeckl.Unity.MeshUtil
             return cleanedMesh;
         }
 
+        public static void FlipTriangles(this Mesh mesh)
+        {
+            for (var subMeshIdx = 0; subMeshIdx < mesh.subMeshCount; subMeshIdx++)
+            {
+                mesh.SetTriangles(FlipTriangles(mesh.GetTriangles(subMeshIdx)), subMeshIdx);
+            }
+        }
+
+        private static int[] FlipTriangles(int[] indices)
+        {
+            var flippedIndices = new int[indices.Length];
+
+            for (var index = 0; index < indices.Length; index += 3)
+            {
+                flippedIndices[index] = indices[index];
+                flippedIndices[index + 1] = indices[index + 2];
+                flippedIndices[index + 2] = indices[index + 1];
+            }
+
+            return flippedIndices;
+        }
+
         /// <summary>
         /// Welds all vertices that are closer to each other than the given threshold.
         /// The index buffers of the mesh will also be updated.
