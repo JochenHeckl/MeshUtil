@@ -41,6 +41,11 @@ namespace de.JochenHeckl.Unity.MeshUtil
             return cleanedMesh;
         }
 
+        public static void OffsetVertices(this Mesh mesh, Vector3 offset)
+        {
+            mesh.vertices = mesh.vertices.Select(x => x + offset).ToArray();
+        }
+
         public static void FlipTriangles(this Mesh mesh)
         {
             for (var subMeshIdx = 0; subMeshIdx < mesh.subMeshCount; subMeshIdx++)
